@@ -28,49 +28,42 @@ class SmartCalculator {
     return this;
   }
 
-  calculate() {
-    let result;
+  calculate() {    
     for (let i=this.arr.length-1; i>0; i--){
       if(this.arr[i]==='^'){
-        result = Math.pow(this.arr[i-1],this.arr[i+1]);
-        this.arr.splice(i,2);
-        this.arr[i-1]=result;
+        this.arr[i-1] = Math.pow(this.arr[i-1],this.arr[i+1]);
+        this.arr.splice(i,2);        
       }
     }
 
-    for (let i=0; i<this.arr.length-1; i++){
+    for (let i=1; i<this.arr.length-1; i++){
       if(this.arr[i]==='*'){
-        result = this.arr[i-1]*this.arr[i+1];
+        this.arr[i-1] = this.arr[i-1]*this.arr[i+1];
         this.arr.splice(i,2);
-        this.arr[i-1]=result;
+        i--;
       }
-    }
-
-    for (let i=0; i<this.arr.length-1; i++){
       if(this.arr[i]==='/'){
-        result = this.arr[i-1]/this.arr[i+1];
+        this.arr[i-1] = this.arr[i-1]/this.arr[i+1];
         this.arr.splice(i,2);
-        this.arr[i-1]=result;
+        i--;
       }
     }
-
-    for (let i=0; i<this.arr.length-1; i++){
+   
+    for (let i=1; i<this.arr.length-1; i++){
       if(this.arr[i]==='-'){
-        result = this.arr[i-1]-this.arr[i+1];
+        this.arr[i-1] = this.arr[i-1]-this.arr[i+1];
         this.arr.splice(i,2);
-        this.arr[i-1]=result;
+        i--;        
+      }
+      if(this.arr[i]==='+'){
+        this.arr[i-1] = this.arr[i-1]+this.arr[i+1];
+        this.arr.splice(i,2);
+        i--;        
       }
     }
 
-    for (let i=0; i<this.arr.length-1; i++){
-      if(this.arr[i]==='+'){
-        result = this.arr[i-1]+this.arr[i+1];
-        this.arr.splice(i,2);
-        this.arr[i-1]=result;
-      }
-    }
-    result=this.arr[0]; 
-    return result;       
+    return this.arr[0]; 
+          
   }
   valueOf () {return this.calculate();}  
 }
